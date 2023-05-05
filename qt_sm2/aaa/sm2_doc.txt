@@ -1,0 +1,65 @@
+// sm.h  文档说明    
+
+// 新建一个SM2密钥。
+    // @return SM2密钥。失败则返回空指针。
+    EC_KEY *GM_SM2_key_new();
+
+    // 释放SM2密钥占用的资源。
+    // @param key [in] SM2密钥。
+    void GM_SM2_key_free(EC_KEY *key);
+
+    // 编码SM2密钥。
+    // @param pem [out] PEM格式的密钥字符串。不用时需要调用者释放资源。
+    // @param key [in] SM2密钥。
+    // @param pri [in] 需要编码的密钥类型。1表示私钥，0表示公钥。
+    // @return 成功返回1，失败返回0。
+    int GM_SM2_key_encode(char **pem, EC_KEY *key, int pri);
+
+    // 解码SM2密钥。
+    // @param key [out] SM2密钥。不用时需要调用者释放资源。
+    // @param pem [in] PEM格式的密钥字符串。
+    // @param pri [in] 需要解码的密钥类型。1表示私钥，0表示公钥。
+    // @return 成功返回1，失败返回0。
+    int GM_SM2_key_decode(EC_KEY **key, const char *pem, int pri);
+
+    // 加密或解密。
+    // @param out [out] 加密后或解密后的数据。不用时需要调用者释放资源。
+    // @param out_len [out] 加密后或解密后的数据长度。
+    // @param in [in] 需要加密或解密的数据。
+    // @param in_len [in] 需要加密或解密的数据长度。
+    // @param key [in] SM2密钥。
+    // @param enc [in] 操作类型。1表示加密，0表示解密。
+    // @return 成功返回1，失败返回0。
+    int GM_SM2_crypt(unsigned char **out, size_t *out_len, const unsigned char *in, size_t in_len, EC_KEY *key, int enc);
+
+    // 签名。
+    // @param sig [out] 签名。不用时需要调用者释放资源。
+    // @param sig_len [out] 签名长度。
+    // @param data [in] 需要签名的数据。
+    // @param data_len [in] 需要签名的数据长度。
+    // @param id [in] 用户身份标识ID。SM2规范规定在用SM2签名时需要指定用户身份标识，无特殊约定的情况下，用户身份标识ID的长度为16个字节，其默认值从左至右依次为：0x31,0x32,0x33,0x34,0x35,0x36,0x37,0x38,0x31,0x32,0x33,0x34,0x35,0x36,0x37,0x38。
+    // @param key [in] SM2密钥。
+    // @return 成功返回1，失败返回0。
+    int GM_SM2_sign(unsigned char **sig, size_t *sig_len, const unsigned char *data, size_t data_len, const unsigned char *id, EC_KEY *key);
+
+    // 验签。
+    // @param sig [in] 签名。
+    // @param sig_len [in] 签名长度。
+    // @param data [in] 需要验签的数据。
+    // @param data_len [in] 需要验签的数据长度。
+    // @param id [in] 用户身份标识ID。
+    // @param key [in] SM2密钥。
+    // @return 成功返回1，失败返回0。
+    int GM_SM2_verify(const unsigned char *sig, size_t sig_len, const unsigned char *data, size_t data_len, unsigned char *id, EC_KEY *key);
+
+
+
+SM2算法是中国国家密码管理局发布的一种椭圆曲线密码算法，用于数字签名、密钥交换和公钥加密等应用场景。其核心原理是基于椭圆曲线离散对数难题和数字签名算法。
+
+具体来说，SM2算法基于一个特定的椭圆曲线上的运算，该椭圆曲线的方程为：y^2 = x^3 + ax + b。其中，a、b是确定的常数，且满足4a^3 + 27b^2 ≠ 0。在该曲线上定义一个基点G，其余的点可以用标量乘法kG得到。
+
+SM2算法中，每个用户都有一个私钥和对应的公钥。私钥是一个随机数d，公钥是基点G的一个标量乘积Q=dG。对于数字签名，用户使用私钥对消息进行签名，接收方使用对应的公钥进行验证；对于密钥交换和公钥加密，两方通过各自的私钥和对方的公钥进行计算得到共享的密钥。
+
+SM2算法的安全性基于椭圆曲线离散对数难题，即给定椭圆曲线上的点P和基点G，求解标量k，使得kG=P。该问题是一种数学上的难题，尚未找到高效的算法求解。此外，SM2算法还采用了一系列安全措施，如哈希函数、随机数生成、密钥派生等，以增强算法的安全性。
+
+总之，SM2算法利用椭圆曲线上的离散对数难题，通过数字签名、密钥交换和公钥加密等应用场景，保障了信息的机密性、完整性和可信性。

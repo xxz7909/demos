@@ -1,0 +1,46 @@
+自启动成功，但还没实现自保护
+    删除的内容
+//    QString cmd_sh=tr("echo -e '#! /bin/sh\nPRO_UI=%1\nwhile true; do\n"
+//                      "NUM_UI=`ps aux | grep ${PRO_UI} | grep -v grep |wc -l`\n"
+//                      "cd %2\n"
+//                      "if [ '${NUM_UI}' -lt '1' ];then\n"
+//                      "#如果不存在就重新启动\n"
+//                      "         ./%3 -c 1 &\n"
+//                      "    elif [ '${NUM_UI}' -gt '1' ];then\n"
+//                      "        killall -9 $PRO_UI\n"
+//                      "    fi\n"
+//                      "        #每次循环沉睡5s\n"
+//                      "    sleep 5\n"
+//                  "done'> /home/wang/tcp_client/test.sh");
+
+//    system("echo '#! /bin/sh' > /home/wang/tcp_client/test.sh");
+//    system(tr("echo PRO_UI=%1 >> /home/wang/tcp_client/test.sh").arg(name_last).toStdString().c_str());
+//    system("echo 'while true; do' >> /home/wang/tcp_client/test.sh");
+//    system("echo 'NUM_UI=`ps aux | grep ${PRO_UI} | grep -v grep |wc -l`' >> /home/wang/tcp_client/test.sh");
+//    system(tr("echo 'cd %2' >> /home/wang/tcp_client/test.sh").arg(wstrFilePath).toStdString().c_str());
+//    system("echo 'if [ ${NUM_UI} -lt '1' ];then' >> /home/wang/tcp_client/test.sh");
+//    system(tr("echo './%3 -c 1 &' >> /home/wang/tcp_client/test.sh").arg(name_last).toStdString().c_str());
+//    system("echo 'elif [ ${NUM_UI} -gt '1' ];then' >> /home/wang/tcp_client/test.sh");
+//    system("echo 'killall -9 $PRO_UI' >> /home/wang/tcp_client/test.sh");
+//    system("echo fi >> /home/wang/tcp_client/test.sh");
+//    system("echo sleep 5 >> /home/wang/tcp_client/test.sh");
+//    system("echo done >> /home/wang/tcp_client/test.sh");
+
+
+
+
+
+
+
+        //QString strResult = p.readAllStandardOutput();
+
+        //p.start("bash", QStringList() <<"-c" << strCmd);
+//    QProcess process,p3;
+//    process.start("pwd");
+//    process.waitForFinished();
+//    QString result = process.readAllStandardOutput();
+//    //qDebug() >> result;
+//    process.close();
+
+//    p3.start(tr("echo -e '[Desktop Entry]\nVersion=1.0.0\nName=test_tcp_client\nName[zh_CN]=王的测试\nExec=%1/test_tcp_client\nType=Application' >> ./myApp.desktop").arg(result));
+//    p3.close();

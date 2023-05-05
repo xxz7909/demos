@@ -1,0 +1,11 @@
+sudo apt-get install libssl-dev
+sudo apt-get install libgmp-dev
+
+g++ -o sm2_encrypt sm2_encrypt.cpp -I/usr/include/openssl -L/usr/lib -lcrypto -lgmp
+
+
+gcc test.c sm2.o -o test -I/usr/include/openssl -L/usr/lib -lcrypto -lgmp
+
+
+ gcc test.c sm2.o sm3.o sm4.o -o test -I/usr/include/openssl -L/usr/lib -lcrypto -lgmp -g -std=c11
+
